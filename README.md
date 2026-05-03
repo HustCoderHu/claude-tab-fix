@@ -16,8 +16,7 @@ The root cause is in the `Read` tool: it formats output as `N\t<line content>`, 
 
 ### prebuilt
 
-go to the right side of this website and look for releases for a bin/exe download. download that
-
+go to the right side of this website and look for releases for a bin/exe download. download that. Save the exe in a place where it is safe from deletion, and set PATH to point to this folder. 
 
 ## via go
 
@@ -78,6 +77,29 @@ Install the binary, then add the hooks to your Claude Code settings.
 **Globally** — add the same block to `~/.claude/settings.json` to enable it for every project on your machine.
 
 If the binary is not on your `PATH`, use the full path: `$(go env GOPATH)/bin/claude-tab-fix`.
+
+## Nice Tip
+
+Add explicit deny for the different commands claude normally uses for edit in the claude settings. the file for your current porject should be in `<project root>/.claude/settings.json` (or `settings.local.json`) or in your `home/.claude...`
+
+for linux the folling commands are recomended (just remove the python3 if you do any python work..)
+``` json
+  "deny": [
+    "Bash(sed:*)",
+    "Bash(awk:*)",
+    "Bash(tr:*)",
+    "Bash(xargs:*)",
+    "Bash(python3:*)"
+  ],
+```
+
+**missing info from windows.. if anyone have any info here, please open a pr or write a issue and il add it..** 
+
+
+when combined with the added context this tool gives ("hey claude, please remember that the read tool is kinda borked...") it forces claude to fall back into the edit path instead of using any other edit tools:
+![hey](example.png)
+
+
 
 ## How it works
 
